@@ -20,11 +20,11 @@ window.onload = function() {
     var overworldSprite = new Zelda.SpriteSheet( overworldImage, 18, 8 );
 
     // Overworld
-    var overworldMap = new Zelda.Map( overworldSprite );
+    var overworldMap = new Zelda.Map( overworldSprite, 256, 88 );
 
     context.render = function () {
-        for (var x = 0; x < 256; x++ ) {
-            for (var y = 0; y < 88; y++ ) {
+        for (var x = 0; x < overworldMap.width; x++ ) {
+            for (var y = 0; y < overworldMap.height; y++ ) {
                 this.drawSprite( overworldSprite, Zelda.Map.overworld[y][x], x, y );
             }
         }

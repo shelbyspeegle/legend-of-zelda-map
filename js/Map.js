@@ -7,7 +7,9 @@ var ___ = 200; // Temporary value to hold the index of a null sprite.
 
 Zelda.Map = Zelda.Map || {};
 
-Zelda.Map = function( spriteSheet ) {
+Zelda.Map = function( spriteSheet, width, height ) {
+    this.width = width;
+    this.height = height;
     this.spriteSheet = spriteSheet;
 };
 
