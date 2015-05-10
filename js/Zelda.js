@@ -7,47 +7,33 @@
 
 var Zelda = Zelda || {};
 
+var currentMap;
+var dungeon1Map;
+
 window.onload = function() {
-    var canvas = document.getElementById( 'spriteContainer' );
-    var context = canvas.getContext( '2d' );
-
-    var overworldImage = new Image();
-    overworldImage.onload = function() {
-        context.render();
-    };
-
-    overworldImage.src = 'img/overworld.png';
-    var overworldSprite = new Zelda.SpriteSheet( overworldImage, 18, 8 );
+    Zelda.canvas = document.getElementById( 'spriteContainer' );
+    Zelda.context = Zelda.canvas.getContext( '2d' );
 
     // Overworld
-    var overworldMap = new Zelda.Map( overworldSprite, 256, 88 );
+    var overworldSprite = new Zelda.SpriteSheet( "overworld", 18, 8 );
+    var overworldMap = new Zelda.Map( Zelda.context, overworldSprite, 256, 88 );
 
-    context.render = function () {
-        for (var x = 0; x < overworldMap.width; x++ ) {
-            for (var y = 0; y < overworldMap.height; y++ ) {
-                this.drawSprite( overworldSprite, Zelda.Map.overworld[y][x], x, y );
-            }
+    var dungeon1Sprite = new Zelda.SpriteSheet( "dungeon1", 16, 11 );
+    dungeon1Map = new Zelda.Map( Zelda.context, dungeon1Sprite, 16, 11 );
+
+    setMap( overworldMap );
+};
+
+setMap = function ( newMap ) {
+    currentMap = newMap;
+    Zelda.canvas.height = currentMap.height * 16;
+    Zelda.canvas.width = currentMap.width * 16;
+
+    if (currentMap.spriteSheet.spriteImg.complete) {
+        currentMap.render();
+    } else {
+        currentMap.spriteSheet.spriteImg.onload = function() {
+            currentMap.render();
         }
-    };
-
-    context.drawSprite = function ( sprite, spriteIndex, x, y ) {
-        var scale = 1.0;
-        var spriteCoordinates = overworldMap.spriteAtIndex(spriteIndex);
-
-        context.drawImage(
-            sprite.spriteImg,
-            (spriteCoordinates.x + 1) + (spriteCoordinates.x * sprite.spriteDimension),
-            (spriteCoordinates.y + 1) + (spriteCoordinates.y * sprite.spriteDimension),
-            sprite.spriteDimension,             // spriteHeight
-            sprite.spriteDimension,             // spriteWidth
-            sprite.spriteDimension * x * scale, // canvasPosX
-            sprite.spriteDimension * y * scale, // canvasPosY
-            sprite.spriteDimension * scale,     // spriteHeight
-            sprite.spriteDimension * scale      // spriteWidth
-        );
-
-    };
-
-    canvas.height = 88 * 16;
-    canvas.width = 256 * 16;
+    }
 };

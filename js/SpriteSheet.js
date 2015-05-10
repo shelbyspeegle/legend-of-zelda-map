@@ -5,9 +5,11 @@
 
 Zelda.SpriteSheet = Zelda.SpriteSheet || {};
 
-Zelda.SpriteSheet = function( spriteImg, width, height ) {
+Zelda.SpriteSheet = function( name, width, height ) {
+    this.spriteImg = new Image();
+    this.spriteImg.src = "img/" + name + ".png";
+    this.name = name;
     this.spriteDimension = 16; // Measured in pixels.
     this.width = width;
     this.height = height;
-    this.spriteImg = spriteImg;
 };
