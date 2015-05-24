@@ -7,31 +7,39 @@ Zelda.Map = Zelda.Map || {};
 
 Zelda.Map = function( context, spriteSheet, width, height ) {
     this.context = context; // Canvas.
-    this.width = width;
-    this.height = height;
-    this.map = Zelda.MapData[spriteSheet.name];
+    this.rooms = Zelda.MapData[spriteSheet.name].rooms;
+    this.height = this.rooms.length;
+    this.width = this.rooms["0"].length;
+    this.roomWidth = width/this.width;
+    this.roomHeight = height/this.height;
     this.spriteSheet = spriteSheet;
-    this.pointsOfInterest = [];
-};
-
-Zelda.Map.prototype.spriteAtIndex = function ( spriteIndex ) {
-    return {
-        x: spriteIndex % this.spriteSheet.width,
-        y: Math.floor(spriteIndex / this.spriteSheet.width)
-    };
 };
 
 Zelda.Map.prototype.render = function () {
-    for (var x = 0; x < this.width; x++ ) {
-        for (var y = 0; y < this.height; y++ ) {
-            this.drawSprite( this.map[y][x], x, y );
+    for ( var roomY = 0; roomY < this.height; roomY++ ) {
+        for ( var roomX = 0; roomX < this.width; roomX++ ) {
+            var room = this.rooms[roomY][roomX];
+            room.x = roomX;
+            room.y = roomY;
+            this.drawRoom( room );
+        }
+    }
+};
+
+Zelda.Map.prototype.drawRoom = function ( room ) {
+    var offsetX = room.x * this.roomWidth;
+    var offsetY = room.y * this.roomHeight;
+
+    for (var x = 0; x < this.roomWidth; x++ ) {
+        for (var y = 0; y < this.roomHeight; y++ ) {
+            this.drawSprite( room[y][x], offsetX + x, offsetY + y );
         }
     }
 };
 
 Zelda.Map.prototype.drawSprite = function ( spriteIndex, x, y ) {
     var scale = 1.0;
-    var spriteCoordinates = this.spriteAtIndex(spriteIndex);
+    var spriteCoordinates = this.spriteSheet.spriteAtIndex(spriteIndex);
 
     this.context.drawImage(
         this.spriteSheet.spriteImg,

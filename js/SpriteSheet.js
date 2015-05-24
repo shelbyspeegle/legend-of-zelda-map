@@ -13,3 +13,10 @@ Zelda.SpriteSheet = function( name, width, height ) {
     this.width = width;
     this.height = height;
 };
+
+Zelda.SpriteSheet.prototype.spriteAtIndex = function ( spriteIndex ) {
+    return {
+        x: spriteIndex % this.width,
+        y: Math.floor(spriteIndex / this.width)
+    };
+};
