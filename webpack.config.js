@@ -17,7 +17,7 @@ module.exports = {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
-    ]
+    ],
   },
   output: {
     clean: true, // clean dist/ on each build.
@@ -28,5 +28,5 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
-  }
+  },
 };

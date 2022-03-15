@@ -5,7 +5,7 @@
     "sourceMap": true,
     "module": "es6",
     "target": "es5",
-    "allowJs": true,
+    "allowJs": false,
     "moduleResolution": "node",
 
     // Allow import x from 'x' vs import * as x from 'x'

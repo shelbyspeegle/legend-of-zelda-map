@@ -4,8 +4,8 @@ import { ZeldaMap } from './ZeldaMap';
 import overworldPng from './img/Overworld.png';
 // import dungeon1Png from './img/dungeon1.png';
 
-const body = document.getElementsByTagName( "body" )[0];
-const html = document.getElementsByTagName( "html" )[0];
+const body = document.getElementsByTagName('body')[0];
+const html = document.getElementsByTagName('html')[0];
 
 const style = document.createElement('style');
 style.innerHTML = `
@@ -37,86 +37,88 @@ const highlight = document.createElement('canvas');
 
 const finalMapImage = document.createElement('img');
 finalMapImage.src = 'http://ian-albert.com/games/legend_of_zelda_maps/zelda-overworld.png';
-finalMapImage.style.opacity = '0.6'
+finalMapImage.style.opacity = '0.6';
 
 const canvas = document.createElement('canvas');
-canvas.style.opacity = '0.6'
-canvas.addEventListener("mousemove", mouseMove, false);
-canvas.addEventListener("mousedown", mouseClick, false);
+canvas.style.opacity = '0.6';
 
 root.append(highlight);
 root.append(finalMapImage);
 root.append(canvas);
 
-const context = canvas.getContext( '2d' );
-const highlightContext = highlight.getContext( '2d' );
+const context = canvas.getContext('2d');
+const highlightContext = highlight.getContext('2d');
 
-var highlighting = false;
+function getCursorPosition(event: MouseEvent) {
+  let x = Number();
+  let y = Number();
 
-function mouseMove( event: MouseEvent ) {
-    var cursorPosition = getCursorPosition( event );
-    var x = cursorPosition.x;
-    var y = cursorPosition.y;
+  if (event.x !== undefined && event.y !== undefined) {
+    x = event.pageX;
+    y = event.pageY;
+  } else { // Firefox method to get the position
+    x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+    y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+  }
 
-    if ( highlighting ) {
-        // Saves unnecessary calls to clearRect.
-        highlightContext.clearRect( 0, 0, highlight.width, highlight.height );
-        highlighting = false;
-    }
+  x -= canvas.offsetLeft;
+  y -= canvas.offsetTop;
 
-    for ( var i = 0; i < MapData.Overworld.pointsOfInterest.length; i++ ) {
-        if ( x === MapData.Overworld.pointsOfInterest[i].x &&
-            y === MapData.Overworld.pointsOfInterest[i].y ) {
-            //Zelda.highlightContext.globalAlpha=0.2;
-            highlightContext.fillStyle="#ffffff";
-            highlightContext.fillRect( x*16, y*16, 16, 16 );
-            highlighting = true;
-        }
-    }
+  x = Math.floor(x / 16);
+  y = Math.floor(y / 16);
+
+  return { x, y };
 }
 
-function mouseClick( event: MouseEvent ) {
-    var cursorPosition = getCursorPosition( event );
-    var x = cursorPosition.x;
-    var y = cursorPosition.y;
+let highlighting = false;
+function mouseMove(event: MouseEvent) {
+  const cursorPosition = getCursorPosition(event);
+  const { x } = cursorPosition;
+  const { y } = cursorPosition;
 
-    console.log( "x: " + x + "\t\ty: " + y );
+  if (highlighting) {
+    // Saves unnecessary calls to clearRect.
+    highlightContext.clearRect(0, 0, highlight.width, highlight.height);
+    highlighting = false;
+  }
 
-    for ( var i = 0; i < MapData.Overworld.pointsOfInterest.length; i++ ) {
-        if ( x === MapData.Overworld.pointsOfInterest[i].x &&
-            y === MapData.Overworld.pointsOfInterest[i].y ) {
-            console.log( "At " + MapData.Overworld.pointsOfInterest[i].title );
-        }
+  for (let i = 0; i < MapData.Overworld.pointsOfInterest.length; i += 1) {
+    if (x === MapData.Overworld.pointsOfInterest[i].x
+            && y === MapData.Overworld.pointsOfInterest[i].y) {
+      // Zelda.highlightContext.globalAlpha=0.2;
+      highlightContext.fillStyle = '#ffffff';
+      highlightContext.fillRect(x * 16, y * 16, 16, 16);
+      highlighting = true;
     }
+  }
 }
 
-function getCursorPosition( event: MouseEvent ) {
-    var x = Number();
-    var y = Number();
+function mouseClick(event: MouseEvent) {
+  const cursorPosition = getCursorPosition(event);
+  const { x } = cursorPosition;
+  const { y } = cursorPosition;
 
-    if ( event.x != undefined && event.y != undefined ) {
-        x = event.pageX;
-        y = event.pageY;
+  //   console.log(`x: ${x}\t\ty: ${y}`);
+
+  for (let i = 0; i < MapData.Overworld.pointsOfInterest.length; i += 1) {
+    if (x === MapData.Overworld.pointsOfInterest[i].x
+              && y === MapData.Overworld.pointsOfInterest[i].y) {
+      //   console.log(`At ${MapData.Overworld.pointsOfInterest[i].title}`);
     }
-    else { // Firefox method to get the position
-        x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-    }
-
-    x -= canvas.offsetLeft;
-    y -= canvas.offsetTop;
-
-    x = Math.floor( x/16 );
-    y = Math.floor( y/16 );
-
-    return { x:x, y:y };
+  }
 }
 
-// Sprites collected from spriters-resource.com.
+let overworldMap: ZeldaMap;
 const onSpriteLoadCallback = () => {
-    overworldMap.render();
+  overworldMap.render();
 };
-var overworldMap = new ZeldaMap( context, new SpriteSheet(overworldPng, 'Overworld', 18, 8, onSpriteLoadCallback), 256, 88);
+// Sprites collected from spriters-resource.com.
+overworldMap = new ZeldaMap(context, new SpriteSheet(overworldPng, 'Overworld', 18, 8, onSpriteLoadCallback), 256, 88);
 
-canvas.height = highlight.height = overworldMap.height * overworldMap.roomHeight * 16;
-canvas.width = highlight.width = overworldMap.width * overworldMap.roomWidth * 16;
+canvas.height = overworldMap.height * overworldMap.roomHeight * 16;
+highlight.height = canvas.height;
+canvas.width = overworldMap.width * overworldMap.roomWidth * 16;
+highlight.width = canvas.width;
+
+canvas.addEventListener('mousemove', mouseMove, false);
+canvas.addEventListener('mousedown', mouseClick, false);
