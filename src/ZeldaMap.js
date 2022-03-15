@@ -1,13 +1,8 @@
-/**
- * Created by shelbyspeegle on 5/3/15.
- */
+import { MapData } from './MapData';
 
-
-Zelda.Map = Zelda.Map || {};
-
-Zelda.Map = function( context, spriteSheet, width, height ) {
+export const ZeldaMap = function( context, spriteSheet, width, height ) {
     this.context = context; // Canvas.
-    this.rooms = Zelda.MapData[spriteSheet.name].rooms;
+    this.rooms = MapData[spriteSheet.name].rooms;
     this.height = this.rooms.length;
     this.width = this.rooms["0"].length;
     this.roomWidth = width/this.width;
@@ -15,7 +10,7 @@ Zelda.Map = function( context, spriteSheet, width, height ) {
     this.spriteSheet = spriteSheet;
 };
 
-Zelda.Map.prototype.render = function () {
+ZeldaMap.prototype.render = function () {
     for ( var roomY = 0; roomY < this.height; roomY++ ) {
         for ( var roomX = 0; roomX < this.width; roomX++ ) {
             var room = this.rooms[roomY][roomX];
@@ -26,7 +21,7 @@ Zelda.Map.prototype.render = function () {
     }
 };
 
-Zelda.Map.prototype.drawRoom = function ( room ) {
+ZeldaMap.prototype.drawRoom = function ( room ) {
     var offsetX = room.x * this.roomWidth;
     var offsetY = room.y * this.roomHeight;
 
@@ -37,7 +32,7 @@ Zelda.Map.prototype.drawRoom = function ( room ) {
     }
 };
 
-Zelda.Map.prototype.drawSprite = function ( spriteIndex, x, y ) {
+ZeldaMap.prototype.drawSprite = function ( spriteIndex, x, y ) {
     var scale = 1.0;
     var spriteCoordinates = this.spriteSheet.spriteAtIndex(spriteIndex);
 
