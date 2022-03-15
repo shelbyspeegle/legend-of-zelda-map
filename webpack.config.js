@@ -9,6 +9,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
@@ -20,5 +25,8 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     hot: true, // enables reload on change.
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
   }
 };

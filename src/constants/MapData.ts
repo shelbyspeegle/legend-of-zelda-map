@@ -1684,25 +1684,27 @@ const OW_P8 = [
 
 // Room coordinate scheme pulled from image at:
 // http://tartarus.rpgclassics.com/zelda1/1stquest/images/Overworld/lowbandwidth/gridmaplowyes.gif
-export const MapData = {};
-MapData.Overworld = {};
-MapData.Overworld.rooms = [
-    [  OW_A1,  OW_B1,  OW_C1,  OW_D1,  OW_E1,  OW_F1,  OW_G1,  OW_H1,  OW_I1,  OW_J1,  OW_K1,  OW_L1,  OW_M1,  OW_N1,  OW_O1,  OW_P1 ],
-    [  OW_A2,  OW_B2,  OW_C2,  OW_D2,  OW_E2,  OW_F2,  OW_G2,  OW_H2,  OW_I2,  OW_J2,  OW_K2,  OW_L2,  OW_M2,  OW_N2,  OW_O2,  OW_P2 ],
-    [  OW_A3,  OW_B3,  OW_C3,  OW_D3,  OW_E3,  OW_F3,  OW_G3,  OW_H3,  OW_I3,  OW_J3,  OW_K3,  OW_L3,  OW_M3,  OW_N3,  OW_O3,  OW_P3 ],
-    [  OW_A4,  OW_B4,  OW_C4,  OW_D4,  OW_E4,  OW_F4,  OW_G4,  OW_H4,  OW_I4,  OW_J4,  OW_K4,  OW_L4,  OW_M4,  OW_N4,  OW_O4,  OW_P4 ],
-    [  OW_A5,  OW_B5,  OW_C5,  OW_D5,  OW_E5,  OW_F5,  OW_G5,  OW_H5,  OW_I5,  OW_J5,  OW_K5,  OW_L5,  OW_M5,  OW_N5,  OW_O5,  OW_P5 ],
-    [  OW_A6,  OW_B6,  OW_C6,  OW_D6,  OW_E6,  OW_F6,  OW_G6,  OW_H6,  OW_I6,  OW_J6,  OW_K6,  OW_L6,  OW_M6,  OW_N6,  OW_O6,  OW_P6 ],
-    [  OW_A7,  OW_B7,  OW_C7,  OW_D7,  OW_E7,  OW_F7,  OW_G7,  OW_H7,  OW_I7,  OW_J7,  OW_K7,  OW_L7,  OW_M7,  OW_N7,  OW_O7,  OW_P7 ],
-    [  OW_A8,  OW_B8,  OW_C8,  OW_D8,  OW_E8,  OW_F8,  OW_G8,  OW_H8,  OW_I8,  OW_J8,  OW_K8,  OW_L8,  OW_M8,  OW_N8,  OW_O8,  OW_P8 ]
-];
-MapData.Overworld.pointsOfInterest = [
-    { title:"Gambling1", x:9, y:12 },
-
-    { title:"Dungeon1", x:88, y:48 },
-    { title:"Dungeon6", x:40, y:26 }, // TODO: is this x-position right?
-
-    { title:"DoorRepair1", x:25, y:1 },
-
-    { title:"ItemShop1", x:40, y:12 }
-];
+export const MapData = {
+    Overworld: {
+        rooms: [
+            [  OW_A1,  OW_B1,  OW_C1,  OW_D1,  OW_E1,  OW_F1,  OW_G1,  OW_H1,  OW_I1,  OW_J1,  OW_K1,  OW_L1,  OW_M1,  OW_N1,  OW_O1,  OW_P1 ],
+            [  OW_A2,  OW_B2,  OW_C2,  OW_D2,  OW_E2,  OW_F2,  OW_G2,  OW_H2,  OW_I2,  OW_J2,  OW_K2,  OW_L2,  OW_M2,  OW_N2,  OW_O2,  OW_P2 ],
+            [  OW_A3,  OW_B3,  OW_C3,  OW_D3,  OW_E3,  OW_F3,  OW_G3,  OW_H3,  OW_I3,  OW_J3,  OW_K3,  OW_L3,  OW_M3,  OW_N3,  OW_O3,  OW_P3 ],
+            [  OW_A4,  OW_B4,  OW_C4,  OW_D4,  OW_E4,  OW_F4,  OW_G4,  OW_H4,  OW_I4,  OW_J4,  OW_K4,  OW_L4,  OW_M4,  OW_N4,  OW_O4,  OW_P4 ],
+            [  OW_A5,  OW_B5,  OW_C5,  OW_D5,  OW_E5,  OW_F5,  OW_G5,  OW_H5,  OW_I5,  OW_J5,  OW_K5,  OW_L5,  OW_M5,  OW_N5,  OW_O5,  OW_P5 ],
+            [  OW_A6,  OW_B6,  OW_C6,  OW_D6,  OW_E6,  OW_F6,  OW_G6,  OW_H6,  OW_I6,  OW_J6,  OW_K6,  OW_L6,  OW_M6,  OW_N6,  OW_O6,  OW_P6 ],
+            [  OW_A7,  OW_B7,  OW_C7,  OW_D7,  OW_E7,  OW_F7,  OW_G7,  OW_H7,  OW_I7,  OW_J7,  OW_K7,  OW_L7,  OW_M7,  OW_N7,  OW_O7,  OW_P7 ],
+            [  OW_A8,  OW_B8,  OW_C8,  OW_D8,  OW_E8,  OW_F8,  OW_G8,  OW_H8,  OW_I8,  OW_J8,  OW_K8,  OW_L8,  OW_M8,  OW_N8,  OW_O8,  OW_P8 ]
+        ],
+        pointsOfInterest: [
+            { title:"Gambling1", x:9, y:12 },
+        
+            { title:"Dungeon1", x:88, y:48 },
+            { title:"Dungeon6", x:40, y:26 }, // TODO: is this x-position right?
+        
+            { title:"DoorRepair1", x:25, y:1 },
+        
+            { title:"ItemShop1", x:40, y:12 }
+        ],
+    }
+};

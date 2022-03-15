@@ -1,4 +1,4 @@
-import { MapData } from './MapData';
+import { MapData } from './constants/MapData';
 import { SpriteSheet } from './SpriteSheet';
 import { ZeldaMap } from './ZeldaMap';
 import overworldPng from './img/Overworld.png';
@@ -53,7 +53,7 @@ const highlightContext = highlight.getContext( '2d' );
 
 var highlighting = false;
 
-function mouseMove( event ) {
+function mouseMove( event: MouseEvent ) {
     var cursorPosition = getCursorPosition( event );
     var x = cursorPosition.x;
     var y = cursorPosition.y;
@@ -75,7 +75,7 @@ function mouseMove( event ) {
     }
 }
 
-function mouseClick( event ) {
+function mouseClick( event: MouseEvent ) {
     var cursorPosition = getCursorPosition( event );
     var x = cursorPosition.x;
     var y = cursorPosition.y;
@@ -90,7 +90,7 @@ function mouseClick( event ) {
     }
 }
 
-function getCursorPosition( event ) {
+function getCursorPosition( event: MouseEvent ) {
     var x = Number();
     var y = Number();
 
