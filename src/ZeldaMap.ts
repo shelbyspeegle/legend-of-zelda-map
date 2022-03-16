@@ -10,6 +10,10 @@ export class ZeldaMap {
 
   roomWidth: number;
 
+  totalWidth: number;
+
+  totalHeight: number;
+
   spriteSheet;
 
   context;
@@ -22,13 +26,22 @@ export class ZeldaMap {
     width: number,
     height: number,
   ) {
+    const size = spriteSheet.spriteDimension;
+
     this.context = context; // Canvas.
     this.rooms = MapData[spriteSheet.name].rooms;
     this.height = this.rooms.length;
     this.width = this.rooms['0'].length;
     this.roomWidth = width / this.width;
     this.roomHeight = height / this.height;
+    this.totalHeight = this.height * this.roomHeight * size;
+    this.totalWidth = this.width * this.roomWidth * size;
+
     this.spriteSheet = spriteSheet;
+  }
+
+  updateWithEdits(edits: number[][][][]) {
+    this.rooms = edits;
   }
 
   render() {
@@ -44,11 +57,45 @@ export class ZeldaMap {
     const offsetX = roomX * this.roomWidth;
     const offsetY = roomY * this.roomHeight;
 
+    const size = this.spriteSheet.spriteDimension;
+
+    // clear entire room before drawing;
+    this.context.clearRect(offsetX * size, offsetY * size, this.roomWidth * size, this.roomHeight * size);
+
     for (let x = 0; x < this.roomWidth; x += 1) {
       for (let y = 0; y < this.roomHeight; y += 1) {
         this.drawSprite(room[y][x], offsetX + x, offsetY + y);
       }
     }
+  }
+
+  // SSFIXME: can we get rid of this?
+  getRoomIndexAt(mapX: number, mapY: number) {
+    const roomXIndex = Math.floor(mapX / this.roomWidth);
+    const roomYIndex = Math.floor(mapY / this.roomHeight);
+
+    return { x: roomXIndex, y: roomYIndex };
+  }
+
+  getRoomAt(mapX: number, mapY: number) {
+    const roomXIndex = Math.floor(mapX / this.roomWidth);
+    const roomYIndex = Math.floor(mapY / this.roomHeight);
+
+    return this.rooms[roomYIndex][roomXIndex];
+  }
+
+  getTileAt(mapX: number, mapY: number) {
+    const room = this.getRoomAt(mapX, mapY);
+    const roomTileXIndex = mapX % (this.roomWidth);
+    const roomTileYIndex = mapY % (this.roomHeight);
+    return room[roomTileYIndex][roomTileXIndex];
+  }
+
+  setTileAt(mapX: number, mapY: number, tileValue: number) {
+    const room = this.getRoomAt(mapX, mapY);
+    const roomTileXIndex = mapX % (this.roomWidth);
+    const roomTileYIndex = mapY % (this.roomHeight);
+    room[roomTileYIndex][roomTileXIndex] = tileValue;
   }
 
   drawSprite(spriteIndex: number, x: number, y: number) {

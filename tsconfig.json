@@ -7,6 +7,7 @@
     "target": "es5",
     "allowJs": false,
     "moduleResolution": "node",
+    "resolveJsonModule": true, // Allow json imports.
 
     // Allow import x from 'x' vs import * as x from 'x'
     "allowSyntheticDefaultImports": true,
